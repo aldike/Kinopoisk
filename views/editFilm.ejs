@@ -36,15 +36,18 @@
                         <option value="">Казахстан</option>
                         <option value="">США</option>
                     </select>
-                    <input type="text" placeholder="Введите страну выпуска" name="country">
                 </fieldset>
                 <fieldset class="fieldset">
                     <label for="">Выберите жанр</label>
                     <select name="genre" id="">
-                        <option value="">Драма</option>
-                        <option value="">Комедия</option>
+                        <% 
+                            genres.forEach(genre =>{
+                        %>
+                        <option value=""><%=genre.name%></option>
+                        <%
+                            })
+                        %>
                     </select>
-                    <input type="text" placeholder="Введите страну выпуска" name="country">
                 </fieldset>
                 <fieldset class="fieldset">
                     <button type="submit">Сохранить</button>
