@@ -1,5 +1,5 @@
 const User = require('./User')
-
+const bcrypt = require('bcrypt')
 const signUp = async(req, res) =>{
     if(
         req.body.email.length <= 0 &&
@@ -12,14 +12,20 @@ const signUp = async(req, res) =>{
             res.redirect('/register?error=2')
         }
         const findUser = await User.findOne({email: req.body.email}).count()
-        if(!findUser){
+        if(findUser){
             res.redirect('/register?error=3')
         }
-        new User({
-            email: req.body.email,
-            full_name: req.body.full_name,
-            password: req.body.password
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(req.body.password, salt, function(err, hash) {
+                new User({
+                    email: req.body.email,
+                    full_name: req.body.full_name,
+                    password: hash
+                }).save()
+                res.redirect('/login')
+            });
         })
+        
 }
 
 module.exports = {

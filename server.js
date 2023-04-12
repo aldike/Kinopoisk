@@ -5,7 +5,7 @@ const app = express();
 require('./server/config/db')
 
 app.use(express.static(__dirname + '/public'))
-app.use(express.urlencoded())
+app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 
 app.use(require('./server/pages/router'))
