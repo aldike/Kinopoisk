@@ -20,10 +20,10 @@
                         <img src="images/profile-img.png" alt="">
                     </div>
                     <div class="profile-info">
-                        <p><span>Полное имя:</span>Сейтжанов Елнур</p>
-                        <p><span>E-mail:</span>yelnur@mail.ru</p>
-                        <button class="edit-btn">Редактировать профиль</button>
-                        <button class="logout-btn">Выход</button>
+                        <p><span>Полное имя:</span><%=user.full_name%></p>
+                        <p><span>E-mail:</span><%=user.email%></p>
+                        <a class="edit-btn">Редактировать профиль</a>
+                        <a href="/api/signout" class="logout-btn">Выход</a>
                     </div>
                 </div>
                 <h3>Сохраненные фильмы</h3>

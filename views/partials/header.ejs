@@ -21,6 +21,16 @@
         </div>
     </div>
     <div class="head-buttons">
-        <a href="/login">Войти</a>
+        <%
+        if(user._id){
+        %>
+            <a href="/profile/<%=user._id%>">Профиль</a>
+        <%
+        }else{
+        %>
+            <a href="/login">Войти</a>
+        <%
+        }
+        %>
     </div>
 </header>
