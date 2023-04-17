@@ -28,7 +28,7 @@ const signUp = async(req, res) =>{
         
 };
 const signIn = (req, res) =>{
-    res.redirect(`./profile/${req.user._id}`)
+    res.redirect(`/profile/${req.user._id}`)
 };
 const signOut = (req, res) =>{
     req.logout(function(err){
