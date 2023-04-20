@@ -12,7 +12,8 @@ passport.use(new LocalStrategy(
             if(user.password){
                 bcrypt.compare(password, user.password, function(err, result){
                     if(err){return done(err)}
-                    if(result) {return done(null, user)}
+                    if(result) {return done(null, user)
+                    }else {return done(null, false, { message: 'Incorrect password.' });}
                 });
             }else{
                 return done('Пользователь не найден')

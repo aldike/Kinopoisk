@@ -6,8 +6,9 @@ const User = require('../auth/User');
 
 
 router.get('/', async(req, res) =>{
-    const allGenres = await Genres.find()
-    res.render("index", {genres: allGenres, user:req.user ? req.user: {}})
+    const allGenres = await Genres.find();
+    const allCountries = await Country.find();
+    res.render("index", {genres: allGenres, countries: allCountries, user:req.user ? req.user: {}})
 })
 
 router.get('/login', (req, res)=>{
@@ -20,9 +21,10 @@ router.get('/register', (req, res)=>{
 
 router.get('/profile/:id', async(req, res)=>{
     const allGenres = await Genres.find()
+    const allCountries = await Country.find()
     const user = await User.findById(req.params.id)
     if(user){
-        res.render("profile", {genres: allGenres, user: user,  loginUser: req.user})
+        res.render("profile", {genres: allGenres, countries: allCountries, user: user,  loginUser: req.user})
     }else{
         res.redirect('/not-found')
     }
@@ -31,20 +33,21 @@ router.get('/profile/:id', async(req, res)=>{
 
 router.get('/admin/:id', async(req, res)=>{
     const allGenres = await Genres.find()
+    const allCountries = await Country.find()
     const user = await User.findById(req.params.id)
-    res.render("adminProfile", {genres: allGenres, loginUser: req.user ? req.user: {}, user: user})
+    res.render("adminProfile", {genres: allGenres, countries: allCountries, loginUser: req.user ? req.user: {}, user: user})
 })
 
 router.get('/new', async(req, res)=>{
     const allGenres = await Genres.find()
     const allCountries = await Country.find()
-    res.render("newFilm", {genres: allGenres, user:req.user ? req.user: {}})
+    res.render("newFilm", {genres: allGenres, countries: allCountries, user:req.user ? req.user: {}})
 })
 
 router.get('/edit', async(req, res)=>{
     const allGenres = await Genres.find()
     const allCountries = await Country.find()
-    res.render("editFilm", {genres: allGenres, user:req.user ? req.user: {}})
+    res.render("editFilm", {genres: allGenres, countries: allCountries, user:req.user ? req.user: {}})
 })
 
 router.get('/not-found', (req, res) =>{
