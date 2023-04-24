@@ -5,5 +5,6 @@ const {getAllCountries} = require('./controller')
 
 router.get('/api/country', getAllCountries)
 
+writeDataCountry();
 
 module.exports = router
