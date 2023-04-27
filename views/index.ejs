@@ -10,23 +10,24 @@
         <div class="main">
             <div class="categories">
                 <h3>Жанры</h3>
-                <%genres.forEach(genre =>{
-                %>
+                <%genres.forEach(genre =>{%>
                     <a href="/<%=genre.key%>"><%=genre.name %></a>
-                <%    
-                })  %>
+                <%})%>
             </div>
             <div class="main-content">
                 <h3>Фильмы и Сериалы</h3>
+                <%  
+                    films.forEach(item =>{
+                %>
                 <div class="main-card">
                     <div class="card-left">
                         <div class="film-img">
-                            <img src="/images/films/film1.webp" alt="">
+                            <img src="<%=item.image%>" alt="">
                         </div>
                         <div class="film-info">
-                            <a href="">Все везде и сразу</a>
-                            <a href="">Everything Everywhere All at Once, 2021, 139 min</a>
-                            <a href="">США, Фантастика</a>
+                            <a href=""><%=item.titleRus%></a>
+                            <a href=""><%=item.titleEng%>, <%=item.year%>, <%=item.time%> min</a>
+                            <a href=""><%=item.country.name%>, <%=item.genre.name%></a>
                             <button class="film-btn">
                                 <img src="/images/icons/play.svg" alt="">
                                 Смотреть
@@ -43,6 +44,9 @@
                         </button>
                     </div>
                 </div>
+                <%
+                    })
+                %>
             </div>
         </div>
     </div>
