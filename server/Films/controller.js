@@ -16,7 +16,8 @@ const createFilm = (req, res) =>{
                 time: req.body.time,
                 country: req.body.country,
                 genre: req.body.genre,
-                image: `${req.file.destination}/${req.file.filename}`
+                image: `${req.file.destination}/${req.file.filename}`,
+                author: req.user._id
             }).save()
             res.redirect(`/admin/${req.user._id}`)
     }else{

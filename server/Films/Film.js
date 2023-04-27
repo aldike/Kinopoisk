@@ -7,7 +7,8 @@ const FilmSchema = new mongoose.Schema({
     time: String,
     country: {type: Schema.Types.ObjectId, ref: 'Country'},
     genre: {type: Schema.Types.ObjectId, ref: 'Genre'},
-    image: String
+    image: String,
+    author: {type: Schema.Types.ObjectId, ref: 'User'}
 })
 
 module.exports = mongoose.model('film', FilmSchema)
