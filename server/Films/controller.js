@@ -48,7 +48,7 @@ const editFilm = async(req, res) =>{
             // films.genre = req.body.genre;
             // films.image = `/images/films/${req.file.filename}`;
             // films.author = req.user._id;
-            // films.save()
+            // films.save();
             //      Способ 2
             await Film.findByIdAndUpdate(req.body.id, {
                 titleRus: req.body.titleRus,
@@ -66,7 +66,19 @@ const editFilm = async(req, res) =>{
         }
 }
 
+const deleteFilm = async(req, res) =>{
+    const film = await Film.findById(req.params.id)
+    if(film){
+        fs.unlinkSync(path.join(__dirname + '../../../public' + film.image))
+        await Film.deleteOne({_id: req.params.id})
+        res.status(200).send('ok')
+    }else{
+        res.status(404).send('Not found')
+    }
+}
+
 module.exports = {
     createFilm,
-    editFilm
+    editFilm,
+    deleteFilm
 }

@@ -21,7 +21,7 @@ const signUp = async(req, res) =>{
                     email: req.body.email,
                     full_name: req.body.full_name,
                     isAdmin: false,
-                    password: req.body.password
+                    password: hash
                 }).save()
                 res.redirect('/login')
             });
