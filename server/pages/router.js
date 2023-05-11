@@ -9,7 +9,8 @@ router.get('/', async(req, res) =>{
     const allGenres = await Genres.find();
     const allCountries = await Country.find();
     const films = await Film.find().populate('country').populate('genre');
-    res.render("index", {genres: allGenres, countries: allCountries, user:req.user ? req.user: {}, films})
+    const user = req.user ? await User.findById(req.user._id) : {}
+    res.render("index", {genres: allGenres, countries: allCountries, user, films})
 })
 
 router.get('/login', (req, res)=>{
@@ -17,19 +18,18 @@ router.get('/login', (req, res)=>{
 })
 
 router.get('/register', (req, res)=>{
-    res.render("register", {user:req.user ? req.user: {}})
+    res.render("register", {user: req.user ? req.user: {}})
 })
 
 router.get('/profile/:id', async(req, res)=>{
     const allGenres = await Genres.find()
     const allCountries = await Country.find()
-    const user = await User.findById(req.params.id)
+    const user = await User.findById(req.params.id).populate('toWatch')
+        .populate({path: 'toWatch', populate: {path: 'country'}})
+        .populate({path: 'toWatch', populate: {path: 'genre'}})
     if(user){
         res.render("profile", {genres: allGenres, countries: allCountries, user: user,  loginUser: req.user})
-    }else{
-        res.redirect('/not-found')
     }
-    
 })
 
 router.get('/admin/:id', async(req, res)=>{
