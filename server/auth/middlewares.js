@@ -1,6 +1,5 @@
 const isAdmin = (req, res, next) =>{
-    console.log(req.user);
-    if(req.user && req.user.isAdmin){
+    if(req.user.isAdmin){
         next();
     }else{
         res.status(401).send('Unauthorized')
@@ -8,7 +7,6 @@ const isAdmin = (req, res, next) =>{
 }
 
 const isAuth = (req, res, next) =>{
-    console.log(req.user);
     if(req.user){
         next();
     }else{
