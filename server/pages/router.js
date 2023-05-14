@@ -59,4 +59,15 @@ router.get('/not-found', (req, res) =>{
     res.render("notFound")
 })
 
+// router.get('/detail:id', async(req, res) =>{
+//     const allGenres = await Genres.find();
+//     const allCountries = await Country.find();
+//     const films = await Film.find().populate('country').populate('genre');
+//     const user = req.user ? await User.findById(req.user._id) : {}
+//     res.render("detail", {genres: allGenres, countries: allCountries, user, films})
+// })
+
+router.get('/detail:id', (req, res) =>{
+    res.render("detail", {user: {}})
+})
 module.exports = router

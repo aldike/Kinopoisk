@@ -25,9 +25,9 @@
                             <img src="<%=item.image%>" alt="">
                         </div>
                         <div class="film-info">
-                            <a href=""><%=item.titleRus%></a>
-                            <a href=""><%=item.titleEng%>, <%=item.year%>, <%=item.time%> min</a>
-                            <a href=""><%=item.country.name%>, <%=item.genre.name%></a>
+                            <a href="/detail/<%=item._id%>"><%=item.titleRus%></a>
+                            <a href="/detail/<%=item._id%>"><%=item.titleEng%>, <%=item.year%>, <%=item.time%> min</a>
+                            <a href="/detail/<%=item._id%>"><%=item.country.name%>, <%=item.genre.name%></a>
                             <button class="film-btn">
                                 <img src="/images/icons/play.svg" alt="">
                                 Смотреть
@@ -41,8 +41,8 @@
                         <%
                             if(user.toWatch && user.toWatch.includes(item._id)){
                         %>
-                            <button class="film-btn" onclick="saveToWatch('<%=item._id%>')">
-                                <img src="/images/icons/save.svg" alt="">
+                            <button class="film-btn" onclick="deleteFromToWatch('<%=item._id%>')">
+                                <img src="/images/icons/saved.png" alt="">
                                 Сохранено
                             </button>
                         <%
