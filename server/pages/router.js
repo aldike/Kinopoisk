@@ -11,11 +11,17 @@ router.get('/', async(req, res) =>{
     if(genres){
         options.genre = genres._id
     }
+    let page = 0
+    const limit = 3
+    if(req.query.page && req.query.page > 0){
+        page = req.query.page
+    }
+    const totalFilms = await Film.count()
     const allGenres = await Genres.find();
     const allCountries = await Country.find();
-    const films = await Film.find(options).populate('country').populate('genre');
+    const films = await Film.find(options).limit(limit).skip(page * limit).populate('country').populate('genre');
     const user = req.user ? await User.findById(req.user._id) : {}
-    res.render("index", {genres: allGenres, countries: allCountries, user, films})
+    res.render("index", {genres: allGenres, countries: allCountries, user, films, pages: Math.ceil(totalFilms / limit)})
 })
 
 router.get('/login', (req, res)=>{
@@ -72,7 +78,7 @@ router.get('/not-found', (req, res) =>{
 //     res.render("detail", {genres: allGenres, countries: allCountries, user, films})
 // })
 
-router.get('/detail:id', async(req, res) =>{
+router.get('/detail/:id', async(req, res) =>{
     const film = await Film.findById(req.params.id).populate('country').populate('genre')
     res.render("detail", {user: req.user ? req.user: {}, film: film})
 })
