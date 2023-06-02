@@ -30,7 +30,7 @@ router.get('/', async(req, res) =>{
         res.locals.search = req.query.search
     }
 
-    const totalFilms = await Film.count()
+    const totalFilms = await Film.count();
     const allGenres = await Genres.find();
     const allCountries = await Country.find();
     const films = await Film.find(options).limit(limit).skip(page * limit).populate('country').populate('genre');
