@@ -50,11 +50,35 @@
                     </div>
                 </div>
             </div>
+            <%  function extractVideoId(link) {
+                const regExp = /(?:\/|%3D|v=|vi=)([0-9A-Za-z_-]{11})(?:[%#?&]|$)/;
+                const match = link.match(regExp);
+                return match ? match[1] : null;
+              }
+            %>
+            <% function convertToEmbedLink(link) {
+                const videoId = extractVideoId(link);
+                if (videoId) {
+                    return `https://www.youtube.com/embed/${videoId}`;
+                }
+                return '';
+            } %>
             <% if (film.video){ %>
                 <div class="film-player">
-                    <iframe width="560" height="315" src="<%=film.video%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="<%=convertToEmbedLink(film.video)%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
-            <%}%>
+            <%
+                }else if(film.series.length > 0){ 
+                    film.series.forEach((link, num) =>{
+            %>
+                <p><%= num + 1 %> серия</p>
+                <div class="film-player">
+                    <iframe width="560" height="315" src="<%=convertToEmbedLink(link)%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            <%
+                    }) 
+                } 
+            %>
             <div class="comments">
                 <h3>Комментарии</h3>
                 <% if(user && user._id){%>
